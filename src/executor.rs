@@ -14,9 +14,12 @@ unsafe extern "C" fn cronetExecutorOnExecute(
     runnablePtr: Cronet_RunnablePtr,
 ) {
     let mut lockedMap = EXECUTOR_CALLBACKS.map().lock().unwrap();
-    lockedMap.remove(&selfPtr);
+
     if let Some(callback) = lockedMap.get(&selfPtr) {
+        println!("Found executor callback");
         callback(Executor { ptr: selfPtr }, Runnable { ptr: runnablePtr });
+    } else {
+        println!("Nope");
     }
 }
 

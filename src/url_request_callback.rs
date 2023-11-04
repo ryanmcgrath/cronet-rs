@@ -55,8 +55,8 @@ unsafe extern "C" fn cronetUrlRequestCallbackOnReadCompleted(
     buffer_ptr: Cronet_BufferPtr,
     bytes_read: u64,
 ) {
-    let lockedMap = URL_REQUEST_CALLBACK_CALLBACKS.map().lock().unwrap();
-    let callback = lockedMap.get(&self_ptr).unwrap();
+    let mut lockedMap = URL_REQUEST_CALLBACK_CALLBACKS.map().lock().unwrap();
+    let callback = lockedMap.get_mut(&self_ptr).unwrap();
     callback.on_read_completed(
         UrlRequestCallback { ptr: self_ptr },
         UrlRequest { ptr: request_ptr },
@@ -214,7 +214,7 @@ pub trait UrlRequestCallbackHandler {
     ///   containing the received data.
     /// * `bytesRead`: The number of bytes read into the `buffer`.
     fn on_read_completed(
-        &self,
+        &mut self,
         url_request_callback: UrlRequestCallback,
         request: UrlRequest,
         info: UrlResponseInfo,
