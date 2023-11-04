@@ -4,7 +4,6 @@ use crate::{
     Cronet_Buffer_InitWithDataAndCallback, Cronet_RawDataPtr, Destroy,
 };
 
-#[derive(Clone)]
 pub struct Buffer {
     pub(crate) ptr: Cronet_BufferPtr,
 }
