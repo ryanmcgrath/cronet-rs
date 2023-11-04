@@ -107,7 +107,7 @@ fn main() {
         runnable.run();
     });
 
-    let result = request.init_with_params(engine, "https://secretkeys.io/debugheaders", params, callback, executor);
+    let result = request.init_with_params(engine, "https://rymc.io/", params, callback, executor);
     println!("Request init: {:?}", result);
 
     let result = request.start();
